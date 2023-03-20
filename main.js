@@ -39,10 +39,9 @@ class Game {
         ctx.fillText(String("Health: "+this.player.health),300,50);
     }
     gameOver(){
-        
-        alert("Game Over\nYour score: "+this.score);
-        document.location.reload;
-        
+        console.log("gameover");
+        alert("Game Over");
+        document.location.reload();
     }
 }
 

@@ -51,7 +51,7 @@ export class Player {
         if (this.invuln && this.invulnCounter > 0) {
             this.color = "blue";
             this.invulnCounter--;   
-            console.log(this.invulnCounter);
+            // console.log(this.invulnCounter);
         }
         else {
             this.color = "white";
@@ -76,12 +76,12 @@ export class Player {
             this.y <= enemy.y + enemy.height &&
             this.y + this.height >= enemy.height &&
             !this.invuln) {
-                console.log("projectile");
+                // console.log("projectile");
                 // enemy.damage(this.damage);
                 // this.collisionFine(enemy);
                 this.health --;
                 this.invuln = true;
-                console.log(this.invuln);
+                // console.log(this.invuln);
                  
             }
         if (this.health < 0){

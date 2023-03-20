@@ -1,6 +1,7 @@
 export class Projectile {
-    constructor(game,speed,damage){
+    constructor(game,speed,damage,projectileDirection){
         this.game = game;
+        this.projectileDirection = projectileDirection;
         this.width = 7;
         this.height = 8;
         this.speed = speed;
@@ -11,12 +12,23 @@ export class Projectile {
     }
 
     draw(context,color){
-            context.beginPath();
-            context.rect(this.xOrigin, this.y, this.width, this.height);
-            context.fillStyle = color;
-            context.fill();
-            context.closePath();
-            this.y -= this.speed;
+            if (this.projectileDirection == -4){
+                context.beginPath();
+                context.rect(this.xOrigin, this.y, this.width, this.height);
+                context.fillStyle = color;
+                context.fill();
+                context.closePath();
+                this.y -= this.speed;
+            }
+            else {
+                context.beginPath();
+                context.rect(this.xOrigin, this.y, this.width, this.height);
+                context.fillStyle = color;
+                context.fill();
+                context.closePath();
+                this.y -= this.speed;
+                this.xOrigin += this.projectileDirection;
+            }
     }
 
     collision(enemy) {  
@@ -24,7 +36,7 @@ export class Projectile {
             this.xOrigin + this.width >= enemy.x &&
             this.y <= enemy.y + enemy.height &&
             this.y + this.height >= enemy.height) {
-                console.log("projectile");
+                // console.log("projectile");
                 enemy.damage(this.damage);
                 return true;
             }

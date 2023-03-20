@@ -92,7 +92,7 @@ export class EnemyHandler {
             this.basicEnemy02 = new Enemy(10,20,110,5,this.speed,this.health,this.color);
             this.basicEnemy03 = new Enemy(10,20,260,5,this.speed,this.health,this.color);
             this.basicEnemy04 = new Enemy(10,20,310,-10,this.speed,this.health,this.color);
-            this.basicEnemy05 = new Enemy(10,20,360,5,this.speed,this.health,this.color);
+            this.basicEnemy05 = new Enemy(10,20,360,5,this.speed,this.health,this.color); 
             this.basicEnemy10 = new Enemy(10,20,10,-30,this.speed,this.health,this.color);       
             this.basicEnemy11 = new Enemy(10,20,60,-45,this.speed,this.health,this.color);
             this.basicEnemy12 = new Enemy(10,20,110,-30,this.speed,this.health,this.color);

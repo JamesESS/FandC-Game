@@ -14,7 +14,7 @@ export class Enemy{
 
     update(){
         /* movementfor basic enemy and wounded healthy enemy*/
-        if (this.health == 1 && this.speed == 2){
+        if (Math.ceil(this.health) == 1 && this.speed == 2){  //round health up to nearest integer to avoid weird behaviour from upgrade projectiles;
         this.y += this.speed
         if (this.counter<15 && this.direction == "right"){
             this.x += 2;
