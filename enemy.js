@@ -27,8 +27,8 @@ export class Enemy{
         }
         else this.direction = "right";
         }
-        /* movement for healthy enemy until it reaches 1 hp*/
-        else if(this.health == 3){
+        /* movement for healthy enemy until it less than 2 hp*/
+        else if(this.health >= 2){
             this.y += 0.8 * this.speed
         if (this.counter<15 && this.direction == "right"){
             this.x += 0.5;
