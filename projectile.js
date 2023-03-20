@@ -10,9 +10,6 @@ export class Projectile {
         this.y = this.yOrigin-8; //set starting point to just above player 
     }
 
-    shoot(){
-        
-    }
     draw(context,color){
             context.beginPath();
             context.rect(this.xOrigin, this.y, this.width, this.height);

@@ -7,7 +7,7 @@
 
 export class Player {
     constructor(game){
-        this.width = 45;
+        this.width = 20;
         this.height = 2*this.width;
         this.game = game;
         this.x = (this.game.width - this.width)/2-this.width; //set starting point to middle of x axis
@@ -19,6 +19,8 @@ export class Player {
         this.shooting = false;
         this.health = 3;
         this.invuln = false;
+        this.invulnCounter = 500;
+        this.color = "white";
         /* this.projectileWidth = 7;
         this.projectileHeight = 20; */
     }
@@ -41,6 +43,21 @@ export class Player {
         else this.shooting = false;
     }
     draw(context){
+        /* context.beginPath();
+        context.rect(this.x, this.y, this.width, this.height);
+        context.fillStyle = "white";
+        context.fill();
+        context.closePath(); */
+        if (this.invuln && this.invulnCounter > 0) {
+            this.color = "blue";
+            this.invulnCounter--;   
+            console.log(this.invulnCounter);
+        }
+        else {
+            this.color = "white";
+            this.invulnCounter = 500;
+            this.invuln = false;
+        }
         context.beginPath();
         context.moveTo(this.width + this.x, 1.5*this.height + this.y);  //bottom left corner of triangle
         context.lineTo((this.width + 2) + this.x, 1.5*this.height + this.y); //smooth out bottom corners sligtly
@@ -48,7 +65,7 @@ export class Player {
         context.lineTo((2*this.width - 2) + this.x, 1.5*this.height + this.y);  //smooth out bottom corners slightly
         context.lineTo(2*this.width + this.x, 1.5*this.height + this.y);  //bottom right corner of triangle
         context.lineTo(1.5*this.width + this.x, this.height + this.y);  //tip of triangle
-        context.fillStyle = "white";
+        context.fillStyle = this.color;
         context.fill();
         context.closePath();
     }
@@ -61,12 +78,18 @@ export class Player {
             !this.invuln) {
                 console.log("projectile");
                 // enemy.damage(this.damage);
+                // this.collisionFine(enemy);
                 this.health --;
                 this.invuln = true;
-                setTimeout((e) => this.invuln = false, 1500);
+                console.log(this.invuln);
+                 
             }
-        if (this.health <= 0){
+        if (this.health < 0){
             this.game.gameOver();
         }
     }
+
+  /*   collisionFine(enemy){
+
+    } */
 }

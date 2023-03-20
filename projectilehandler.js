@@ -6,9 +6,9 @@ export class ProjectileHandler {
         if (this.upgrade == 0){ */
             this.game = game;
             this.projectiles = [];
-            this.reloadSpeed = 20;
+            this.reloadSpeed = 10;
             this.reloadTimer = this.reloadSpeed;
-            this.speed = 6;
+            this.speed = 5;
             this.damage = 1;
             this.color = "white"
         // }
