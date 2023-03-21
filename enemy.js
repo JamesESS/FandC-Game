@@ -1,6 +1,6 @@
 
 export class Enemy{
-    constructor(height,width,x,y,speed,health,color){
+    constructor(height,width,x,y,speed,health,color,player){
         this.x = x;
         this.y = y;
         this.height = height;
@@ -10,7 +10,8 @@ export class Enemy{
         this.direction = "right";
         this.health = health;
         this.color = color;
-    }
+        this.player = player;
+        }
 
     update(){
         /* movementfor basic enemy and wounded healthy enemy*/
@@ -44,7 +45,7 @@ export class Enemy{
         /* movement for dangerous enemy */
         else {
             this.y += this.speed/2
-        if (this.x < 390 && this.direction == "right"){
+        /* if (this.x < 390 && this.direction == "right"){
             this.x += 2;
             this.counter++;
         }
@@ -53,7 +54,9 @@ export class Enemy{
             this.x -= 2;
             this.counter--;
         }
-        else this.direction = "right";
+        else this.direction = "right"; */
+            if (this.player.x - this.x > 0) this.x += 2;
+            else if (this.player.x - this.x < 0) this.x -= 2;
         }
     }
     draw(context){
