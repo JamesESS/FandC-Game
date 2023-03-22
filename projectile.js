@@ -1,14 +1,47 @@
 export class Projectile {
-    constructor(game,speed,damage,projectileDirection){
+    constructor(game,speed,damage,projectileDirection,upgrade){
         this.game = game;
         this.projectileDirection = projectileDirection;
         this.width = 7;
         this.height = 8;
         this.speed = speed;
         this.damage = damage;
+        this.upgrade = upgrade;
         this.yOrigin = (this.game.player.height + this.game.player.y - this.height);       //sets player coords at point of creation
         this.xOrigin = (1.5*this.game.player.width + this.game.player.x - this.width/2); 
         this.y = this.yOrigin-8; //set starting point to just above player 
+        // console.log(("projectile constructor upgrade status"),this.upgrade);
+        /* if (this.upgrade == 0){
+            // console.log("basic shot");
+            this.reloadSpeed = 10;
+            this.speed = 5;
+            this.damage = 1;
+            this.color = "white"
+        } */
+        /* laser projectile */
+        /* else if (this.upgrade == 1){
+            // console.log("upgrade 1");
+            this.reloadSpeed = 1;
+            this.speed = 5;
+            this.damage = 0.25;
+            this.color = "orange"
+        } */
+        /* high damage projectile */
+        /* else if (this.upgrade == 2){
+            // console.log("upgrade 2");
+            this.reloadSpeed = 12;
+            this.speed = 3;
+            this.damage = 3;
+            this.color = "blue"
+        } */
+        /* multishot projectile */
+        /* else if (this.upgrade == 3){
+            // console.log("upgrade 3");
+            this.reloadSpeed = 12;
+            this.speed = 3;
+            this.damage = 0.5;
+            this.color = "aquamarine"
+        } */
     }
 
     draw(context,color){
