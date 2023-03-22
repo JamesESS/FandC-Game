@@ -11,7 +11,7 @@ export class Enemy{
         this.health = health;
         this.color = color;
         this.player = player;
-        this.playerX = 1.5*this.player.width + this.player.x - this.width/2; //find center point of player sprite and match with center of enemy
+        this.playerX = 1.5*this.player.width + this.player.x + this.width/1.8; //find center point of player sprite and match with center of enemy
         }
 
     update(){
