@@ -11,6 +11,7 @@ export class Enemy{
         this.health = health;
         this.color = color;
         this.player = player;
+        this.playerX = 1.5*this.player.width + this.player.x - this.width/2; //find center point of player sprite and match with center of enemy
         }
 
     update(){
@@ -55,8 +56,9 @@ export class Enemy{
             this.counter--;
         }
         else this.direction = "right"; */
-            if (this.player.x - this.x > 0) this.x += 2;
-            else if (this.player.x - this.x < 0) this.x -= 2;
+            if (this.playerX - this.x > 0) this.x ++;
+            else if (this.playerX - this.x < 0) this.x --;
+            else this.y = this.y*1.02;
         }
     }
     draw(context){
@@ -69,6 +71,6 @@ export class Enemy{
 
     damage(damage) {
         this.health -= damage;
-        console.log(this.health);
+        // console.log(this.health);
     }
 }
