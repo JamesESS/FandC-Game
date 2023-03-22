@@ -10,7 +10,7 @@ export class InputHandler {
             e.key === "Up" || e.key === "ArrowUp" || e.key === "w" || e.key === "W"       ||
             e.key === "Down" || e.key === "ArrowDown" || e.key === "s" || e.key === "S"   ||
             e.key === " " || e.code === "Space" )
-            && this.keys.indexOf(e.key) === -1) {
+            && this.keys.indexOf(e.key) === -1) {  //checks if key is already in array
                 this.keys.push(e.key);
             }
             // console.log(e.key, this.keys);

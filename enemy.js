@@ -43,22 +43,13 @@ export class Enemy{
         }
         else this.direction = "right";
         }
-        /* movement for dangerous enemy */
+        /* movement for dangerous enemy - track player and accelerate when aligned*/
         else {
             this.y += this.speed/2
-        /* if (this.x < 390 && this.direction == "right"){
-            this.x += 2;
-            this.counter++;
-        }
-        else this.direction = "left";
-        if (this.x > 10 && this.direction == "left"){
-            this.x -= 2;
-            this.counter--;
-        }
-        else this.direction = "right"; */
-            if (this.playerX - this.x > 0) this.x ++;
-            else if (this.playerX - this.x < 0) this.x --;
-            else this.y = this.y*1.02;
+            if ((1.5*this.player.width + this.player.x + this.width/1.8) - 8 - this.x > 10) this.x ++;  //check if enemy in line with player 
+            else if ((1.5*this.player.width + this.player.x + this.width/1.8) - 8 - this.x < -10) this.x --;  
+            else this.speed += 0.3;     //if enemy in line acelerate
+            // console.log(((1.5*this.player.width + this.player.x + this.width/1.8) - 8 - this.x))
         }
     }
     draw(context){

@@ -13,10 +13,10 @@ export class EnemyHandler {
             this.enemyGenerator();
         },this.enemySpawnTimer);  //spawn new set of enemies
     }
-        //spawn new set of enemies every 1800(this.enemySpawnTimer) miliseconds
+        //spawn new set of enemies every 2000(value of this.enemySpawnTimer) miliseconds
     enemyGenerator(){
-        this.speed = 2 /* + Math.floor(this.game.score/2000) */;
-        this.health = 1 /* + Math.floor(this.game.score/1000) */;
+        this.speed = 2;
+        this.health = 1;
         if (this.game.score<1500) {
             this.basicEnemy00 = new Enemy(10,20,10,5,this.speed,this.health,this.color,this.game.player);       
             this.basicEnemy01 = new Enemy(10,20,60,-10,this.speed,this.health,this.color,this.game.player);

@@ -16,10 +16,9 @@ export class ProjectileHandler {
         this.upgradeX = 200;
         this.upgradeY = 0;
         this.upgradeValue = 0;
-        this.upgradeTimer = 500; //countdown for upgrade projectile
+        this.upgradeTimer = 0; //countdown for upgrade projectile
         this.projectileIncrement = 0; //used for multishot projectile (upgrade 3)
-        // this.upgradeConstructor = new ProjectileUpgrade(this.upgrade);
-        // setInterval(this.projectileUpgradeHandler, 5000);   //should pick new upgrade to spawn every 5 seconds
+        setInterval((e) => {this.upgradeTimer--;},10);
     }
 
     shootProjectile() {
@@ -40,16 +39,7 @@ export class ProjectileHandler {
         else this.reloadTimer--
     }
 
-    draw(context) {
-        /* if(this.upgrade > 0){
-            context.beginPath();
-            context.rect(100, 100, 10, 10);
-            context.fillStyle = this.upgradeColor;
-            context.fill();
-            context.closePath();
-            this.upgradeY+= 10;   
-        } */
-       
+    draw(context) {       
         this.shootProjectile();
         this.projectiles.forEach((projectile) => {
             if(projectile.y < 0) this.projectiles.splice(this.projectiles.indexOf(projectile),1) //remove projectile from array when it goes off screen
@@ -70,11 +60,9 @@ export class ProjectileHandler {
 
     projectileUpgradeHandler(){
         // console.log("this.upgrade: ",this.upgrade);
-        if (this.upgrade == 0 && this.upgradeTimer > 0 && !this.upgradeValue) {
+        if (this.upgrade == 0 && this.upgradeTimer > 0 && !this.upgradeValue) {  //checks if projectile is upgraded. this.upgradeValue logic is redundant?
         this.upgrade = Math.floor(Math.random()*3)+1;
-        setInterval((e) => {this.upgradeTimer--;
-        console.log(this.upgradeTimer)
-        },10)
+        // setInterval((e) => {this.upgradeTimer--;},10)
         this.upgradeValue = true;
         // console.log("Upgrade active! timer: ",this.upgradeTimer)
         }
@@ -82,15 +70,12 @@ export class ProjectileHandler {
         else if (this.upgrade > 0 && this.upgradeTimer <= 0) {
             // console.log("upgrade timer finished");
             this.upgrade = 0;
-            // this.upgradeTimer = 500;
-            // this.upgradeValue = false;
         }
-        else if (this.upgradeTimer <= -500) {
-            this.upgradeTimer = 500;
+        else if (this.upgradeTimer <= -1300) {
+            this.upgradeTimer = 800;
             this.upgradeValue = false;
         }
         // console.log("this.upgrade: ",this.upgrade);
-        else this.upgradeColor = "white";
           /* basic projectile type */
           if (this.upgrade == 0){
             this.reloadSpeed = 10;

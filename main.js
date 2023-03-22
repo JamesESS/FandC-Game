@@ -7,26 +7,27 @@ import { EnemyHandler } from './enemyhandler.js';
 window.addEventListener('load', function(){   //waits for page to load before starting
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-let highScore = 0;
+let highScore = 2000;
 canvas.width = 400;
 canvas.height = 650;
 let gameState = true;
-let gameAr = [];
 let game = 0;
 let gameOverTimer = 3000;
 class Game {
     constructor(width, height){
-        this.width = width;
+        this.width = width;  //save dimensions of canvas
         this.height = height;
+        /* start up all constructors */
         this.projectileHandler = new ProjectileHandler(this);
         this.player = new Player(this);
         this.input = new InputHandler();
         this.enemyHandler = new EnemyHandler(this);
-        this.backgound = new Background(this);
+        this.backgound = new Background(this);  //just noticed background spelt wrong in variable too scared to change...
         this.score = setInterval((e) => {       //increases score by 100 every 4 seconds
             this.score += 100;
         },4000);
         this.score=0;
+        //for debugging score gates are 1500,2500&5000 
     }
     update(){
         this.player.update(this.input.keys);
@@ -38,32 +39,26 @@ class Game {
         this.enemyHandler.draw(context,this.score);   
         ctx.font = "20px Comic Sans MS";
         ctx.fillStyle = "white";  
-        ctx.fillText(String("Score: "+this.score),10,50);   //output score to top right of screen
-        ctx.fillText(String("Hi-Score: "+highScore),10,80); 
-        ctx.fillText(String("Health: "+this.player.health),300,50);
+        ctx.fillText(String("Score: "+this.score),10,50);   //output score to top left of screen
+        ctx.fillText(String("Hi-Score: "+highScore),10,80); //output hiscore to top left of screen
+        ctx.fillText(String("Lives: "+this.player.health),300,50); //output health to top right of screen
     }
     gameOver(){
         console.log("gameover");
-        // alert("Game Over");
         gameState = false;
         if(highScore < this.score) highScore = this.score;
-        // document.location.reload();
     }
 }
-// let game = new Game(canvas.width, canvas.height)
-// const game = new Game(canvas.width, canvas.height);
-// gameStateHandler() ;
+
 function animate(){
     if(gameState) {
     ctx.clearRect(0,0, canvas.width, canvas.height);
         game.update();
         game.draw(ctx);
-        /* gameAr[0].update();
-        gameAr[0].draw(ctx); */
         requestAnimationFrame(animate);
     }
     else {
-        if(gameOverTimer <= 0){
+        if(gameOverTimer <= 0){ //check if gameover countdown finished
             gameOverTimer = 3000;
             gameStateHandler();
         }
@@ -87,32 +82,13 @@ function gameStateHandler() {
     {
         game = new Game(canvas.width, canvas.height)
         console.log("game start");
-        // gameAr.push(game);
         animate();
     }
     else{
-        console.log("game over handler",gameAr.length);
-        // gameAr.splice(0,1);
+        console.log("game over handler");
         game = undefined;
         game = new Game(canvas.width, canvas.height)
         gameState = true;
-        // game = new Game(canvas.width, canvas.height)
-        // gameAr.push(game);
-        // animate();
     }
 }
-
-/* function gameOverCountdown() {
-        ctx.clearRect(0,0, canvas.width, canvas.height);
-        ctx.fillStyle = "red";
-        ctx.fillRect(0,0, canvas.width, canvas.height)
-        ctx.font = "60px Comic Sans MS";
-        ctx.fillStyle = "white";
-        ctx.fillText("GAME OVER",20,canvas.height/2)
-        ctx.font = "40px Comic Sans MS";
-        ctx.fillText(String("NEW GAME "+gameOverTimer),30,canvas.height/2 + 100);
-        gameOverTimer--;
-} */
-
-
 });  //end of load event listener
