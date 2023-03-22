@@ -19,7 +19,7 @@ export class Player {
         this.shooting = false;
         this.health = 3;
         this.invuln = false;
-        this.invulnCounter = 500;
+        this.invulnCounter = 50;
         this.color = "white";
         /* this.projectileWidth = 7;
         this.projectileHeight = 20; */
@@ -68,13 +68,18 @@ export class Player {
         context.fillStyle = this.color;
         context.fill();
         context.closePath();
+        context.strokeRect(this.width + this.x + 2,this.height + this.y,this.width -4,this.height/2);  //draw hitbox around ship
     }
 
     collisionRough(enemy){
-        if(this.x <= enemy.x + enemy.width &&
+        if(/* this.x <= enemy.x + enemy.width &&
             this.x + this.width/2 >= enemy.x &&
             this.y <= enemy.y + enemy.height &&
-            this.y + this.height >= enemy.height &&
+            this.y + this.height >= enemy.height && */
+            this.width + this.x + 2 <= enemy.x + enemy.width &&
+            this.width + this.x + this.width/2 >= enemy.x &&
+            this.height + this.y <= enemy.y + enemy.height &&
+            this.height + this.y + this.height/2 >= enemy.height &&
             !this.invuln) {
                 // console.log("projectile");
                 // enemy.damage(this.damage);
