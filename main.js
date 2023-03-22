@@ -4,13 +4,15 @@ import { Background } from './background.js';
 import { ProjectileHandler } from './projectilehandler.js';
 import { EnemyHandler } from './enemyhandler.js';
 
-window.addEventListener('load', function(){
+window.addEventListener('load', function(){   //waits for page to load before starting
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
 canvas.width = 400;
 canvas.height = 650;
-
+let gameState = true;
+let gameAr = [];
+let gameOverTimer = 3000;
 class Game {
     constructor(width, height){
         this.width = width;
@@ -40,19 +42,72 @@ class Game {
     }
     gameOver(){
         console.log("gameover");
-        alert("Game Over");
-        document.location.reload();
+        // alert("Game Over");
+        gameState = false;
+        // document.location.reload();
+    }
+}
+let game = new Game(canvas.width, canvas.height)
+// const game = new Game(canvas.width, canvas.height);
+// gameStateHandler() ;
+function animate(){
+    if(gameState) {
+    ctx.clearRect(0,0, canvas.width, canvas.height);
+        /* game.update();
+        game.draw(ctx); */
+        gameAr[0].update();
+        gameAr[0].draw(ctx);
+        requestAnimationFrame(animate);
+    }
+    else {
+        ctx.clearRect(0,0, canvas.width, canvas.height);
+        ctx.fillStyle = "black";
+        ctx.fillRect(0,0, canvas.width, canvas.height)
+        ctx.font = "60px Comic Sans MS";
+        ctx.fillStyle = "white";
+        ctx.fillText("GAME OVER",20,canvas.height/2)
+        ctx.font = "40px Comic Sans MS";
+        ctx.fillText(String("NEW GAME IN "+Math.ceil(gameOverTimer/1000)),35,canvas.height/2 + 100);
+        gameOverTimer -= 4;
+        
+        if(gameOverTimer <= 0){
+            gameOverTimer = 3000;
+            gameStateHandler();
+        }
+        requestAnimationFrame(animate);
     }
 }
 
-const game = new Game(canvas.width, canvas.height);
-function animate(){
-    ctx.clearRect(0,0, canvas.width, canvas.height);
-    game.update();
-    game.draw(ctx);
-    requestAnimationFrame(animate);
+gameStateHandler();
 
+function gameStateHandler() {
+    
+    if(gameState)
+    {
+        gameAr.push(game);
+        animate();
+    }
+    else{
+        // console.log("game over handler");
+        gameAr.splice(0,1);
+        gameState = true;
+        game = new Game(canvas.width, canvas.height)
+        gameAr.push(game);
+        animate();
+    }
 }
-animate();
-});
 
+function gameOverCountdown() {
+        ctx.clearRect(0,0, canvas.width, canvas.height);
+        ctx.fillStyle = "red";
+        ctx.fillRect(0,0, canvas.width, canvas.height)
+        ctx.font = "60px Comic Sans MS";
+        ctx.fillStyle = "white";
+        ctx.fillText("GAME OVER",20,canvas.height/2)
+        ctx.font = "40px Comic Sans MS";
+        ctx.fillText(String("NEW GAME "+gameOverTimer),30,canvas.height/2 + 100);
+        gameOverTimer--;
+}
+
+
+});  //end of load event listener
