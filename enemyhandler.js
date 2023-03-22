@@ -128,7 +128,8 @@ export class EnemyHandler {
     draw(context){
 
 
-        this.basicEnemies.forEach((enemy) => {   //for each enemy within basic enemies check collision,draw,update loaction
+        this.basicEnemies.forEach((enemy) => {   //for each enemy within basic enemies check collision,draw,update location
+            this.game.player.collisionRough(enemy)
             if(this.game.projectileHandler.collision(enemy)) {
                 // console.log("enemy collision");
                 if (enemy.health <= 0) {
@@ -137,10 +138,10 @@ export class EnemyHandler {
                 }
             }
             else {enemy.draw(context);
-            this.game.player.collisionRough(enemy)
+            
             enemy.update();}
         });        
-        this.healthyEnemies.forEach((enemy) => {   //for each enemy within healthy enemies check collision,draw,update loaction
+        this.healthyEnemies.forEach((enemy) => {   //for each enemy within healthy enemies check collision,draw,update location
             if(this.game.projectileHandler.collision(enemy)) {
                 // console.log("enemy collision");
                 if (enemy.health <= 0) {
@@ -152,7 +153,7 @@ export class EnemyHandler {
             this.game.player.collisionRough(enemy)
             enemy.update();}
         });    
-        this.dangerousEnemies.forEach((enemy) => {   //for each enemy within dangerous enemies check collision,draw,update loaction
+        this.dangerousEnemies.forEach((enemy) => {   //for each enemy within dangerous enemies check collision,draw,update location
             if(this.game.projectileHandler.collision(enemy)) {
                 // console.log("enemy collision");
                 if (enemy.health <= 0) {
