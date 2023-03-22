@@ -7,7 +7,7 @@ import { EnemyHandler } from './enemyhandler.js';
 window.addEventListener('load', function(){   //waits for page to load before starting
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-
+let highScore = 0;
 canvas.width = 400;
 canvas.height = 650;
 let gameState = true;
@@ -39,12 +39,14 @@ class Game {
         ctx.font = "20px Comic Sans MS";
         ctx.fillStyle = "white";  
         ctx.fillText(String("Score: "+this.score),10,50);   //output score to top right of screen
+        ctx.fillText(String("Hi-Score: "+highScore),10,80); 
         ctx.fillText(String("Health: "+this.player.health),300,50);
     }
     gameOver(){
         console.log("gameover");
         // alert("Game Over");
         gameState = false;
+        if(highScore < this.score) highScore = this.score;
         // document.location.reload();
     }
 }
@@ -72,7 +74,7 @@ function animate(){
         ctx.fillStyle = "white";
         ctx.fillText("GAME OVER",20,canvas.height/2)
         ctx.font = "40px Comic Sans MS";
-        ctx.fillText(String("NEW GAME IN "+Math.ceil(gameOverTimer/1000)),35,canvas.height/2 + 100);
+        ctx.fillText(String("NEW GAME IN "+Math.ceil(gameOverTimer/1000)),35,canvas.height/2 + 100); //outputs only thousand digit from gameovertimer
         gameOverTimer -= 4;      
         requestAnimationFrame(animate);
     }
@@ -81,7 +83,6 @@ function animate(){
 gameStateHandler();
 
 function gameStateHandler() {
-    
     if(gameState)
     {
         game = new Game(canvas.width, canvas.height)
@@ -92,16 +93,16 @@ function gameStateHandler() {
     else{
         console.log("game over handler",gameAr.length);
         // gameAr.splice(0,1);
-        game = 0;
+        game = undefined;
         game = new Game(canvas.width, canvas.height)
         gameState = true;
         // game = new Game(canvas.width, canvas.height)
         // gameAr.push(game);
-        animate();
+        // animate();
     }
 }
 
-function gameOverCountdown() {
+/* function gameOverCountdown() {
         ctx.clearRect(0,0, canvas.width, canvas.height);
         ctx.fillStyle = "red";
         ctx.fillRect(0,0, canvas.width, canvas.height)
@@ -111,7 +112,7 @@ function gameOverCountdown() {
         ctx.font = "40px Comic Sans MS";
         ctx.fillText(String("NEW GAME "+gameOverTimer),30,canvas.height/2 + 100);
         gameOverTimer--;
-}
+} */
 
 
 });  //end of load event listener
